@@ -164,6 +164,8 @@ start:
 		${MAKE} _docker-up-and-wait; \
 	fi;
 	$(MAKE) solr-cores
+	docker-compose exec drupal with-contenv bash -lc 'cmp -s /var/www/drupal/assets/solr/solrconfig_extra.xml /opt/solr/server/solr/ISLANDORA/conf/solrconfig_extra.xml || cp /var/www/drupal/assets/solr/solrconfig_extra.xml /opt/solr/server/solr/ISLANDORA/conf/solrconfig_extra.xml'
+	docker-compose restart solr
 
 .PHONY: _docker-up-and-wait
 .SILENT: _docker-up-and-wait
