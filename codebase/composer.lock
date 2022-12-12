@@ -8354,12 +8354,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jhu-idc/idc_ui_module.git",
-                "reference": "ec1dc104850cac896a5f545ee97fef38597226f5"
+                "reference": "9cd5d4e31f4ad435eedaf6f4637dce10ffee6d45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jhu-idc/idc_ui_module/zipball/ec1dc104850cac896a5f545ee97fef38597226f5",
-                "reference": "ec1dc104850cac896a5f545ee97fef38597226f5",
+                "url": "https://api.github.com/repos/jhu-idc/idc_ui_module/zipball/9cd5d4e31f4ad435eedaf6f4637dce10ffee6d45",
+                "reference": "9cd5d4e31f4ad435eedaf6f4637dce10ffee6d45",
                 "shasum": ""
             },
             "default-branch": true,
@@ -8369,7 +8369,7 @@
                 "source": "https://github.com/jhu-idc/idc_ui_module/tree/main",
                 "issues": "https://github.com/jhu-idc/idc_ui_module/issues"
             },
-            "time": "2022-12-09T15:48:52+00:00"
+            "time": "2022-12-12T19:24:53+00:00"
         },
         {
             "name": "jhu-idc/islandora_defaults",
