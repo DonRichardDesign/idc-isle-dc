@@ -21,7 +21,7 @@ third_party_settings:
 id: collection_contact
 label: 'Collection Contact'
 recipients:
-  - temp@localhost
+  - jscholarship-help@jhu.edu
 reply: ''
 weight: 0
 message: ''
