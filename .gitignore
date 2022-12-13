@@ -113,3 +113,6 @@ screenshots/
 
 # Ignore Masonry
 codebase/web/libraries/masonry
+
+# Composer authentication
+auth.json
