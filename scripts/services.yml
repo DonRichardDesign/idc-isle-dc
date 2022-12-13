@@ -1,0 +1,17 @@
+parameters:
+  twig.config:
+    debug: true
+    auto_reload: true
+    cache: false
+    allowed_file_extensions:
+      - css
+      - html
+      - js
+      - svg
+      - twig
+  renderer.config:
+    required_cache_contexts: ['languages:language_interface', 'theme', 'user.permissions']
+    auto_placeholder_conditions:
+      max-age: -1
+      contexts: ['session', 'user']
+      tags: []

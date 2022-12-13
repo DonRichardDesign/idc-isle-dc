@@ -22,6 +22,7 @@ codebase/.gitattributes
 codebase/web/core/
 codebase/web/modules/contrib/
 codebase/web/themes/contrib/
+codebase/web/sites/default/services.yml
 snapshot/data.tar
 xdebug*
 *.orig

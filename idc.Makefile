@@ -123,6 +123,9 @@ dev-up:  download-default-certs
 	docker-compose exec drupal with-contenv bash -lc "echo \"alias drupal-check='vendor/mglaman/drupal-check/drupal-check'\" >> ~/.bashrc"
 	$(MAKE) set-codebase-owner
 	docker-compose exec drupal with-contenv bash -lc "chmod 766 /var/www/drupal/xdebug.log"
+	# Add twig debugging
+	docker cp scripts/services.yml $$(docker ps --format "{{.Names}}" | grep drupal):/var/www/drupal/web/sites/default/services.yml
+	sudo chown --reference=codebase/web/sites/default/default.settings.php codebase/web/sites/default/services.yml
 
 .PHONY: dev-down
 .SILENT: dev-down
@@ -131,6 +134,7 @@ dev-down:  download-default-certs
 		cp /tmp/.env .env && \
 		rm /tmp/.env
 	$(MAKE) -B docker-compose.yml
+	sudo rm -f codebase/web/sites/default/services.yml
 	docker-compose stop drupal
 	docker-compose rm -f drupal
 
@@ -285,8 +289,8 @@ YARN=$(shell which yarn)
 theme-compile:
 	sudo -u $(shell echo $$USER) test -w codebase/web/themes/contrib/idc-ui-theme || { echo $(shell sudo chown -R $$USER: codebase/) ; exit 1; }
 	docker-compose exec drupal with-contenv bash -lc 'COMPOSER_MEMORY_LIMIT=-1 composer update jhu-idc/idc-ui-theme'
-	sudo chown -R $(shell id -u):101 ./codebase/web/themes/contrib/idc-ui-theme/
-	find ./codebase/web/themes/contrib/idc-ui-theme/ -name 'node_modules' -type d -prune -exec rm -rf '{}' +
+	$(MAKE) set-codebase-owner
+	sudo find ./codebase/web/themes/contrib/idc-ui-theme/ -name 'node_modules' -type d -prune -exec rm -rf '{}' +
 	echo $(shell docker rmi $(shell docker images | grep 'idc_theme_build'))
 	cd codebase/web/themes/contrib/idc-ui-theme/ && docker build -t idc_theme_build .
 	echo "Building theme"
