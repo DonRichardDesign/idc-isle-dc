@@ -1,4 +1,6 @@
 .DEFAULT_GOAL := default
+# Establish "GIT_TAG" as the the current commit reference for the repo;
+# this will be used later to establish container image tags:
 GIT_TAG := $(shell git describe --tags --always)
 
 # Bootstrap a new instance without Fedora.  Assumes there is a Drupal site in ./codebase.
@@ -187,12 +189,12 @@ static-drupal-image:
 	EXISTING=`docker images -q $$IMAGE` ; \
 	if test -z "$$EXISTING" ; then \
 		echo "Building Drupal image with base:  $${REPOSITORY}/drupal:$${TAG} " ; \
-		docker pull $${IMAGE} 2>/dev/null || \
 		docker build --build-arg REPOSITORY=$${REPOSITORY} --build-arg TAG=$${TAG} -t $${IMAGE} .; \
+		docker tag $${IMAGE}  ${REPOSITORY}/drupal-static:static ; \
 	else \
 		echo "Using existing Drupal image $${EXISTING}" ; \
+		docker tag $${EXISTING}  ${REPOSITORY}/drupal-static:static ; \
 	fi
-	docker tag ${REPOSITORY}/drupal-static:${GIT_TAG} ${REPOSITORY}/drupal-static:static
 
 # Export a tar of the static drupal image
 .PHONY: static-drupal-image-export
@@ -219,8 +221,8 @@ static-docker-compose.yml: static-drupal-image
 			echo $$line >> .env_static ; \
 		fi \
 		done < $${ENV_FILE} && \
-				echo setting xxDRUPAL_STATIC_TAG && \
-		echo xxDRUPAL_STATIC_TAG=static >> .env_static
+				echo setting DRUPAL_STATIC_TAG && \
+		echo DRUPAL_STATIC_TAG=static >> .env_static
 	mv ${ENV_FILE} .env.bak
 	mv .env_static ${ENV_FILE}
 	echo Building static drupal configuration
