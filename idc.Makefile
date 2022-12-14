@@ -171,8 +171,9 @@ start:
 	fi;
 	$(MAKE) solr-cores
 	$(MAKE) config-import
+	docker inspect idc-drupal-1 | grep Image
 	echo "Force solr ISLANDORA config"
-	docker-compose exec -T drupal '/bin/rm -f /opt/solr/server/solr/ISLANDORA/conf/solrconfig_extra.xml ; /bin/cp -f /var/www/drupal/assets/solr/solrconfig_extra.xml /opt/solr/server/solr/ISLANDORA/conf/solrconfig_extra.xml'
+	docker-compose exec -T drupal bash -c '/bin/rm -f /opt/solr/server/solr/ISLANDORA/conf/solrconfig_extra.xml ; /bin/cp -f /var/www/drupal/assets/solr/solrconfig_extra.xml /opt/solr/server/solr/ISLANDORA/conf/solrconfig_extra.xml'
 	echo "Restarting solr"
 	docker-compose restart solr
 
