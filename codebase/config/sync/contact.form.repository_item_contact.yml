@@ -20,7 +20,7 @@ third_party_settings:
 id: repository_item_contact
 label: 'Repository Item Contact'
 recipients:
-  - web@localhost
+  - jscholarship-help@jhu.edu
 reply: ''
 weight: 0
 message: ''
