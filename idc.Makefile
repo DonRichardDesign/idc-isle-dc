@@ -177,6 +177,10 @@ start:
 _docker-up-and-wait:
 	docker-compose up -d
 	sleep 5
+	if [ "${GH_TOKEN}" ]; then \
+		echo "Installing github token"; \
+		docker-compose exec -T drupal bash -lc "composer config -g github-oauth.github.com ${GH_TOKEN}" & echo '' ; \
+	fi;
 	docker-compose exec -T drupal /bin/sh -c "while true ; do echo \"Waiting for Drupal to start ...\" ; if [ -d \"/var/run/s6/services/nginx\" ] ; then s6-svwait -u /var/run/s6/services/nginx && exit 0 ; else sleep 5 ; fi done"
 
 # Static drupal image, with codebase baked in.  This image
