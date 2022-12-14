@@ -8297,12 +8297,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jhu-idc/idc-ui-theme.git",
-                "reference": "7845bdb106c7ae0f77775e97f6e70e77f5c48ee6"
+                "reference": "cf3d1a65901253850fcd3ebcab2b872a1d07cbbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jhu-idc/idc-ui-theme/zipball/7845bdb106c7ae0f77775e97f6e70e77f5c48ee6",
-                "reference": "7845bdb106c7ae0f77775e97f6e70e77f5c48ee6",
+                "url": "https://api.github.com/repos/jhu-idc/idc-ui-theme/zipball/cf3d1a65901253850fcd3ebcab2b872a1d07cbbf",
+                "reference": "cf3d1a65901253850fcd3ebcab2b872a1d07cbbf",
                 "shasum": ""
             },
             "default-branch": true,
@@ -8312,7 +8312,7 @@
                 "source": "https://github.com/jhu-idc/idc-ui-theme/tree/main",
                 "issues": "https://github.com/jhu-idc/idc-ui-theme/issues"
             },
-            "time": "2022-12-13T17:35:33+00:00"
+            "time": "2022-12-13T22:42:30+00:00"
         },
         {
             "name": "jhu-idc/idc_defaults",
@@ -9452,110 +9452,6 @@
                 "source": "https://github.com/Masterminds/html5-php/tree/2.7.6"
             },
             "time": "2022-08-18T16:18:26+00:00"
-        },
-        {
-            "name": "ml/iri",
-            "version": "1.1.4",
-            "target-dir": "ML/IRI",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lanthaler/IRI.git",
-                "reference": "cbd44fa913e00ea624241b38cefaa99da8d71341"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lanthaler/IRI/zipball/cbd44fa913e00ea624241b38cefaa99da8d71341",
-                "reference": "cbd44fa913e00ea624241b38cefaa99da8d71341",
-                "shasum": ""
-            },
-            "require": {
-                "lib-pcre": ">=4.0",
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "ML\\IRI": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Markus Lanthaler",
-                    "email": "mail@markus-lanthaler.com",
-                    "homepage": "http://www.markus-lanthaler.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "IRI handling for PHP",
-            "homepage": "http://www.markus-lanthaler.com",
-            "keywords": [
-                "URN",
-                "iri",
-                "uri",
-                "url"
-            ],
-            "support": {
-                "issues": "https://github.com/lanthaler/IRI/issues",
-                "source": "https://github.com/lanthaler/IRI/tree/master"
-            },
-            "time": "2014-01-21T13:43:39+00:00"
-        },
-        {
-            "name": "ml/json-ld",
-            "version": "1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lanthaler/JsonLD.git",
-                "reference": "c74a1aed5979ed1cfb1be35a55a305fd30e30b93"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lanthaler/JsonLD/zipball/c74a1aed5979ed1cfb1be35a55a305fd30e30b93",
-                "reference": "c74a1aed5979ed1cfb1be35a55a305fd30e30b93",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ml/iri": "^1.1.1",
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "json-ld/tests": "1.0",
-                "phpunit/phpunit": "^4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ML\\JsonLD\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Markus Lanthaler",
-                    "email": "mail@markus-lanthaler.com",
-                    "homepage": "http://www.markus-lanthaler.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "JSON-LD Processor for PHP",
-            "homepage": "http://www.markus-lanthaler.com",
-            "keywords": [
-                "JSON-LD",
-                "jsonld"
-            ],
-            "support": {
-                "issues": "https://github.com/lanthaler/JsonLD/issues",
-                "source": "https://github.com/lanthaler/JsonLD/tree/1.2.0"
-            },
-            "time": "2020-06-16T17:45:06+00:00"
         },
         {
             "name": "monolog/monolog",
