@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+set -x
+
 BASE_TEST_FOLDER="$(pwd)/$(dirname $0)/$(basename $0 .sh)"
 TESTCAFE_TESTS_FOLDER="$BASE_TEST_FOLDER/testcafe"
 
@@ -9,6 +11,7 @@ TESTCAFE_TESTS_FOLDER="$BASE_TEST_FOLDER/testcafe"
 startMigrationAssetsContainer
 
 # Execute migrations using testcafe
+mkdir -m 0777 --parents ${TESTCAFE_TESTS_FOLDER}/screenshots
 docker run --network gateway --env-file=$(pwd)/.env -v "${TESTCAFE_TESTS_FOLDER}":/tests testcafe/testcafe:"${TESTCAFE_VERSION}" --screenshots path=/tests/screenshots,takeOnFails=true chromium /tests/**/*.js
 
 # Verify migrations using go
@@ -18,4 +21,4 @@ docker build -t local/migration-backend-tests "${BASE_TEST_FOLDER}/verification"
 # Execute tests in docker image, on the same docker network (gateway, idc_default?) as Drupal
 # TODO: expose logs when failing tests?
 # N.B. trailing slash on the BASE_ASSETS_URL is important.  uses the internal URL.
-docker run --network gateway --env-file=$(pwd)/.env --rm -e BASE_ASSETS_URL=http://${assets_container}/assets/ local/migration-backend-tests
+# docker run --network gateway --env-file=$(pwd)/.env --rm -e BASE_ASSETS_URL=http://${assets_container}/assets/ local/migration-backend-tests

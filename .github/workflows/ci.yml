@@ -66,6 +66,7 @@ jobs:
     test:
         name: test
         runs-on: ubuntu-latest
+        if: false   # Don/Tim: disable testing for now
         needs: build
         strategy:
           matrix: ${{ fromJSON(needs.build.outputs.matrix) }}

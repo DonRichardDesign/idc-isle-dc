@@ -99,6 +99,18 @@
         {
             "type": "package",
             "package": {
+                "name": "islandora/chullo",
+                "version": "dev-dev",
+                "source": {
+                    "type": "git",
+                    "url": "https://github.com/Islandora/chullo.git",
+                    "reference": "d563d5e48ef9b15dcf45029277bbc2f6eeef2454"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
                 "name": "imagesloaded/imagesloaded",
                 "version": "4.1.4",
                 "type": "drupal-library",
@@ -123,9 +135,9 @@
         "drupal/contact_emails": "^1.19",
         "drupal/contact_storage": "^1.1",
         "drupal/content_browser": "^1.0@alpha",
-        "drupal/core-composer-scaffold": "9.4.7",
-        "drupal/core-project-message": "9.4.7",
-        "drupal/core-recommended": "9.4.7",
+        "drupal/core-composer-scaffold": "9.4.9",
+        "drupal/core-project-message": "9.4.9",
+        "drupal/core-recommended": "9.4.9",
         "drupal/core-vendor-hardening": "^9.2",
         "drupal/devel": "^4.1",
         "drupal/embed": "^1.4",
@@ -159,7 +171,7 @@
         "jhu-idc/idc-ui-theme": "dev-main",
         "jhu-idc/idc_defaults": "dev-main",
         "jhu-idc/idc_export": "dev-main",
-        "jhu-idc/idc_ui_module": "dev-main",
+        "jhu-idc/idc_ui_module": "dev-main#b9a08d3bc252ebad9d07fec2fc1c883e17d7f593",
         "jhu-idc/islandora_defaults": "dev-8.x-1.x",
         "jhu-idc/islandora_repository_reports": "dev-main",
         "jhu-idc/migrate_file": "dev-8.x-1.x",
