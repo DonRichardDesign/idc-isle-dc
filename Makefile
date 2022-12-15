@@ -388,9 +388,9 @@ dev:
 .phony: confirm
 confirm: 
 	@printf "\n\n**DANGER** \n" ; \
-         echo "About to rm your SERVER data subdirs, all docker volumes and your codebase/web/ directory" ; \
+	echo "About to rm your SERVER data subdirs, all docker volumes and your codebase/web/ directory" ; \
 	 read -p "Are you sure you want to continue and drop your data? [y/N] " && \
-           if [ "$${REPLY:-N}" == y ] ; then echo "Continuing" ; true ; else printf "Aborting" ; false; fi && \
+	if [ "$${REPLY:-N}" == y ] ; then echo "Continuing" ; true ; else printf "Aborting" ; false; fi && \
 	 printf "\n\n"
 
 # Destroys everything beware!
