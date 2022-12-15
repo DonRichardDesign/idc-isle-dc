@@ -385,23 +385,26 @@ dev:
 	$(MAKE) install ENVIRONMENT=local
 	$(MAKE) hydrate ENVIRONMENT=local
 
+
 .phony: confirm
-confirm: 
-	@printf "\n\n**DANGER** \n" ; \
-	echo "About to rm your SERVER data subdirs, all docker volumes and your codebase/web/ directory" ; \
-	 read -p "Are you sure you want to continue and drop your data? [y/N] " REPLY  && \
-	if [ "$${REPLY:-N}" == y ] ; then echo "Continuing" ; true ; else printf "Aborting" ; false; fi && \
-	 printf "\n\n"
+confirm:
+	@echo "\n\n"
+	@echo -n "Are you sure you want to continue and drop your data? [y/N] " && read ans && [ $${ans:-N} = y ]
+	@echo "\n\n"
 
 # Destroys everything beware!
 .PHONY: clean
 .SILENT: clean
-clean: confirm
-	-docker-compose down -v --remove-orphans && \
-	echo "Preparing to forcibly remove 'codebase/' and certs/ directories" && \
-	echo "Note: elevating to root permissions via sudo to remove possible codebase/ with changed ownership" && \
+clean:
+	echo "**DANGER** About to rm your SERVER data subdirs, your docker volumes and your codebase/web"
+	$(MAKE) confirm
+	-docker-compose down -v --remove-orphans
+	# $(MAKE) set-codebase-owner
+	echo "Preparing to forcibly remove 'codebase/' and certs/ directories"
+	echo "Note: elevating to root permissions via sudo to remove possible codebase/ with changed ownership"
 	echo "you might be prompted for local password for sudo permissions:"
-	sudo /bin/rm -fr codebase certs && \
-	echo "Refreshing 'codebase/':" && \
-	git checkout codebase && \
+	sudo rm -fr codebase certs
+	# git clean -xffd .
+	git checkout codebase
 	echo "Clean completed successfully."
+
