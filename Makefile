@@ -389,7 +389,7 @@ dev:
 confirm: 
 	@printf "\n\n**DANGER** \n" ; \
 	echo "About to rm your SERVER data subdirs, all docker volumes and your codebase/web/ directory" ; \
-	 read -p "Are you sure you want to continue and drop your data? [y/N] " && \
+	 read -p "Are you sure you want to continue and drop your data? [y/N] " REPLY  && \
 	if [ "$${REPLY:-N}" == y ] ; then echo "Continuing" ; true ; else printf "Aborting" ; false; fi && \
 	 printf "\n\n"
 
