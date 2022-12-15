@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+set -x
+
 BASE_TEST_FOLDER="$(pwd)/$(dirname $0)/$(basename $0 .sh)"
 TESTCAFE_TESTS_FOLDER="$BASE_TEST_FOLDER/testcafe"
 
