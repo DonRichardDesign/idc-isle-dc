@@ -398,7 +398,7 @@ confirm:
 .SILENT: clean
 clean: confirm
 	-docker-compose down -v --remove-orphans && \
-        echo "Preparing to forcibly remove 'codebase/' and certs/ directories" && \
+	echo "Preparing to forcibly remove 'codebase/' and certs/ directories" && \
 	echo "Note: elevating to root permissions via sudo to remove possible codebase/ with changed ownership" && \
 	echo "you might be prompted for local password for sudo permissions:"
 	sudo /bin/rm -fr codebase certs && \
