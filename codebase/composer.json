@@ -199,7 +199,8 @@
             "drupal/core-project-message": true,
             "drupal/core-vendor-hardening": true,
             "zaporylie/composer-drupal-optimizations": true,
-            "wikimedia/composer-merge-plugin": true
+            "wikimedia/composer-merge-plugin": true,
+            "dealerdirect/phpcodesniffer-composer-installer": false
         }
     },
     "autoload": {
