@@ -21,11 +21,12 @@ for d in $DRUPAL_DIR/web/sites/default/files/tmp /tmp/private ; do
   $CHOWN -R nginx:nginx "$d"
 done
 
-#drush -y state:set system.maintenance_mode 1 --input-format=integer
+drush -y state:set system.maintenance_mode 1 --input-format=integer
 
 # This is a workaround for a bug.
-drush cdel core.extension module.search_api_solr_defaults || true
-drush sql-query "DELETE FROM key_value WHERE collection='system.schema' AND name='search_api_solr_defaults';" || true
+#drush cdel core.extension module.search_api_solr_defaults || true
+#drush sql-query "DELETE FROM key_value WHERE collection='system.schema' AND name='search_api_solr_defaults';" || true
+
 drush php-eval "\Drupal::keyValue('system.schema')->delete('remote_stream_wrapper')" || true
 drush php-eval "\Drupal::keyValue('system.schema')->delete('matomo')" || true
 
@@ -48,9 +49,7 @@ if [ ! -f web/sites/default/files/generic.png ] ; then
   cp "web/core/modules/media/images/icons/generic.png" "web/sites/default/files/generic.png" 
 fi
 
-#drush -y config:import
-#drush -y cache:rebuild
-#drush -y state:set system.maintenance_mode 0 --input-format=integer
+drush -y state:set system.maintenance_mode 0 --input-format=integer
 
 echo ""
 echo ""
