@@ -1,0 +1,12 @@
+diff --git a/modules/search_api_solr_defaults/search_api_solr_defaults.post_update.php b/modules/search_api_solr_defaults/search_api_solr_defaults.post_update.php
+index 5f72babf..05ba1558 100644
+--- a/modules/search_api_solr_defaults/search_api_solr_defaults.post_update.php
++++ b/modules/search_api_solr_defaults/search_api_solr_defaults.post_update.php
+@@ -12,6 +12,6 @@ function search_api_solr_defaults_post_update_uninstall_module() {
+   if (\Drupal::moduleHandler()->moduleExists('search_api_solr_defaults')) {
+     /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
+     $moduleInstaller = \Drupal::service('module_installer');
+-    $moduleInstaller->uninstall('search_api_solr_defaults');
++    $moduleInstaller->uninstall(['search_api_solr_defaults']);
+   }
+ }

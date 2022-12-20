@@ -21,6 +21,10 @@
         },
         {
             "type": "vcs",
+            "url": "git@github.com:Islandora/chullo.git"
+        },
+        {
+            "type": "vcs",
             "url": "git@github.com:jhu-idc/islandora_defaults.git"
         },
         {
@@ -99,18 +103,6 @@
         {
             "type": "package",
             "package": {
-                "name": "islandora/chullo",
-                "version": "dev-dev",
-                "source": {
-                    "type": "git",
-                    "url": "https://github.com/Islandora/chullo.git",
-                    "reference": "d563d5e48ef9b15dcf45029277bbc2f6eeef2454"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
                 "name": "imagesloaded/imagesloaded",
                 "version": "4.1.4",
                 "type": "drupal-library",
@@ -168,6 +160,7 @@
         "imagesloaded/imagesloaded": "^4.1",
         "islandora-rdm/islandora_fits": "dev-8.x-1.x",
         "islandora/carapace": "dev-8.x-3.x",
+        "islandora/chullo": "1.2.0 as dev-dev",
         "jhu-idc/idc-ui-theme": "dev-main",
         "jhu-idc/idc_defaults": "dev-main",
         "jhu-idc/idc_export": "dev-main",
@@ -267,14 +260,13 @@
             "simplesamlphp/simplesamlphp": {
                 "SimpleSAMLphp config": "patches/simplesaml_config.patch"
             },
-            "drupal/title_length": {
-                "Node title length 1: Apply user config override": "patches/node_title_length_fix-hook-install.patch",
-                "Node title length 2: Taxonomy name length": "patches/node_title_length_termNameCharLength-3041979-8.patch"
-            },
             "islandora/islandora": {
                 "Routing definitions": "patches/islandora.routing.yml.patch",
                 "Media Source Serivce": "patches/mediasourceservice.patch",
                 "Media Source Controller": "patches/mediasourcecontroller.patch"
+            },
+            "drupal/search_api_solr": {
+                "search_api_solr_defaults_post_update_uninstall_module": "patches/search_api_solr_defaults_post_update_uninstall_module.patch"
             }
         }
     }
