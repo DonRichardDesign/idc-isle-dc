@@ -225,14 +225,14 @@ static-docker-compose.yml: static-drupal-image
 	ENV_FILE=.env
 	if [ "$(env)" != "" ] ; then echo inherited environment ; ENV_FILE=$(env); fi; \
 	echo '' > .env_static && \
-		while read line; do \
+		grep -v ^DRUPAL_STATIC_TAG= $${ENV_FILE} | while read line; do \
 		if echo $$line | grep -q "ENVIRONMENT" ; then \
 			echo "ENVIRONMENT=static" >> .env_static ; \
 		else \
 			echo $$line >> .env_static ; \
 		fi \
-		done < $${ENV_FILE} && \
-				echo setting DRUPAL_STATIC_TAG && \
+		done && \
+			echo setting DRUPAL_STATIC_TAG && \
 		echo DRUPAL_STATIC_TAG=static >> .env_static
 	mv ${ENV_FILE} .env.bak
 	mv .env_static ${ENV_FILE}
