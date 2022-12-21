@@ -196,6 +196,7 @@ _docker-up-and-wait:
 		echo "No github token provided" ; \
 	fi
 	# new block:
+	set -x ; \
 	containerId=$$( docker-compose ps -q drupal ) ; \
 	echo "Drupal container ID: '$$containerId'" ; \
 	containerName=$$(docker inspect -f '{{.Name}}' $$(docker-compose ps -q drupal) | cut -c2-) ; \
@@ -208,7 +209,7 @@ _docker-up-and-wait:
 			echo "Waiting for Drupal to start ... current state: $$runState" ; \
 		done && \
 		echo Drupal is ready. ; \
-        fi
+	fi
 
 # Static drupal image, with codebase baked in.  This image
 # is tagged based on the current git hash/tag.  If the image is not present
