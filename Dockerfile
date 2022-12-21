@@ -22,11 +22,13 @@ COPY --chown=nginx:www-data codebase /var/www/drupal/
 COPY --chown=0:0 rootfs /
 RUN  \
     /bin/rm -f /etc/cont-init.d/99-custom-setup.sh && \
+    for dirname in web/sites/default/files/tmp /tmp/private ; do \
+      /bin/mkdir -m 0775 -p "$dirname" && \
+      /bin/chown -R nginx:www-data "$dirname" ; done && \
     for dirname in /var/www/drupal/{vendor,web} ; do \
       if [ -d "$dirname" ] ; then \
         find "$dirname" \! -user nginx -exec chown -v nginx:www-data  {} \; ; \
-      fi ; \
-    done && \
+      fi ; done && \
     chmod 0750 /var/www/drupal/fix_permissions.sh && \
     /var/www/drupal/fix_permissions.sh /var/www/drupal/web nginx 
 
