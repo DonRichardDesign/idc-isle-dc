@@ -181,14 +181,21 @@ start:
 .PHONY: _docker-up-and-wait
 .SILENT: _docker-up-and-wait
 _docker-up-and-wait:
-#	docker-compose up -d
-	sleep 5
+	docker-compose up -d
+	containerId="" ; \
+	while [ -z "$$containerId" ] ; do \
+		echo "(still) waiting for Drupal container to appear" ; \
+		sleep 2; \
+		containerId=$$( docker-compose ps -q drupal ) ; \
+	done && echo "containerId='$$containerId'"
+	# composer config can move forward since container is available:
 	if [ "${GH_TOKEN}" ]; then \
 		echo "Installing github token"; \
 		docker-compose exec -T drupal bash -lc "composer config -g github-oauth.github.com ${GH_TOKEN}" ; \
 	else \
 		echo "No github token provided" ; \
 	fi
+	# new block:
 	containerId=$$( docker-compose ps -q drupal ) ; \
 	echo "Drupal container ID: '$$containerId'" ; \
 	containerName=$$(docker inspect -f '{{.Name}}' $$(docker-compose ps -q drupal) | cut -c2-) ; \
