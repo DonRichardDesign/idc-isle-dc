@@ -18,7 +18,7 @@ bootstrap: snapshot-empty default destroy-state up install \
 # Rebuilds the Drupal cache
 .PHONY: cache-rebuild
 .SILENT: cache-rebuild
-cache-rebuild: set-tmp
+cache-rebuild: 
 	echo "rebuilding Drupal cache..."
 	docker-compose exec -T drupal drush cr -y
 
@@ -200,7 +200,7 @@ static-drupal-image:
 	EXISTING=`docker images -q $$IMAGE` ; \
 	if test -z "$$EXISTING" ; then \
 		echo "Building Drupal image with base:  $${REPOSITORY}/drupal:$${TAG} " ; \
-		docker build --build-arg REPOSITORY=$${REPOSITORY} --build-arg TAG=$${TAG} -t $${IMAGE} .; \
+		docker build --build-arg REPOSITORY=$${REPOSITORY} --build-arg TAG=$${TAG} -t $${IMAGE} . && \
 		docker tag $${IMAGE}  ${REPOSITORY}/drupal-static:static ; \
 	else \
 		echo "Using existing Drupal image $${EXISTING}" ; \
