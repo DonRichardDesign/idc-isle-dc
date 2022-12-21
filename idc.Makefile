@@ -189,6 +189,8 @@ _docker-up-and-wait:
 	else \
 		echo "No github token provided" ; \
 	fi
+	containerId=$$( docker-compose ps -q drupal ) ; \
+	echo "Drupal container ID: '$$containerId'" ; \
 	containerName=$$(docker inspect -f '{{.Name}}' $$(docker-compose ps -q drupal) | cut -c2-) ; \
 	echo "Looking into run-state of found-container '$$containerName'" ; \
 	if [ -n "$$containerName" ] ; then \
