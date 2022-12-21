@@ -196,14 +196,13 @@ _docker-up-and-wait:
 		echo "No github token provided" ; \
 	fi
 	# new block:
-	set -x ; \
 	containerId=$$( docker-compose ps -q drupal ) ; \
 	echo "Drupal container ID: '$$containerId'" ; \
 	containerName=$$(docker inspect -f '{{.Name}}' $$(docker-compose ps -q drupal) | cut -c2-) ; \
 	echo "Looking into run-state of found-container '$$containerName'" ; \
 	if [ -n "$$containerName" ] ; then \
 		runState="" ; \
-		while [ "true" != "$runState" ] ; do \
+		while [ "true" != "$$runState" ] ; do \
 			sleep 5 ; \
 			runState=$$(docker inspect -f {{.State.Running}} "$$containerName") ; \
 			echo "Waiting for Drupal to start ... current state: $$runState" ; \
