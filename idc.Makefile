@@ -202,7 +202,7 @@ _docker-up-and-wait:
 	echo "Looking into run-state of found-container '$$containerName'" ; \
 	if [ -n "$$containerName" ] ; then \
 		runState="" ; \
-		until [ ! "true" == "$$runState" ] ; do \
+		until [ "true" == "$$runState" ] ; do \
 			sleep 5 ; \
 			runState=$$(docker inspect -f {{.State.Running}} "$$containerName") ; \
 			echo "Waiting for Drupal to start ... ($$runState)" ; \
