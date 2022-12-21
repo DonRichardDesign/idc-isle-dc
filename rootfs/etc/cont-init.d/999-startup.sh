@@ -14,13 +14,6 @@ MKDIR="/bin/mkdir"
 
 set +e
 
-echo "Creating tmp and private directories"
-for d in $DRUPAL_DIR/web/sites/default/files/tmp /tmp/private ; do
-  echo " directory: '$d'"
-  $MKDIR -m 0775 -p "$d"
-  $CHOWN -R nginx:nginx "$d"
-done
-
 drush -y state:set system.maintenance_mode 1 --input-format=integer
 
 # This is a workaround for a bug.

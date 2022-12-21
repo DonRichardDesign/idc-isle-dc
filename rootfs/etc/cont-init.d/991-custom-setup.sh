@@ -134,7 +134,23 @@ function main {
   local db_count=0
   $(installed_local) || db_count=$?
 
-  # IDC: Removed composer install (should be done during image build phase)
+  # IDC: modified composer install section to avoid running composer install as part of startup
+  # Install Composer modules if necessary.
+  if [ ! -d vendor ] ; then
+    printf "\nNo $(pwd)/vendor directory found\n"
+    if [ ! -f composer.lock ] ; then
+      printf "\nNo $(pwd)/composer.lock found. Exiting startup script; cannot continue (but not error state).\n"
+      exit 0
+    fi
+
+    # No vendor/ but we do have composer.lock file:
+    if [ -n "${DRUPAL_INSTANCE}" ] && [ "${DRUPAL_INSTANCE}" != "dev" ] ;
+    then
+      COMPOSER_MEMORY_LIMIT=-1 composer install
+    else
+      COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-install=auto
+    fi
+  fi
 
   if [ -z "${db_count}" ] || [ "${db_count}" -lt 1 ] ; then
     printf "\n\nERROR: Drupal is not installed, no pre-existing state found\n\n"
