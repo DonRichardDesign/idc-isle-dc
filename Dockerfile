@@ -38,5 +38,7 @@ RUN \
     COMPOSER_MEMORY_LIMIT=-1 COMPOSER_DISCARD_CHANGES=true composer install --no-interaction --no-progress --prefer-dist && \
     composer clearcache
 
+HEALTHCHECK --start-period=3m --retries=10 --timeout=5s --interval=15s CMD curl -o /dev/null -s  -H "Host:$(  echo $DRUPAL_DEFAULT_SITE_URL | sed s,^.*/,, )"  http://localhost:80/ || exit 1
+
 # /init process must be run as root:
 USER root

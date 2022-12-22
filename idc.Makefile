@@ -182,12 +182,33 @@ start:
 .SILENT: _docker-up-and-wait
 _docker-up-and-wait:
 	docker-compose up -d
-	sleep 5
+	containerId="" ; \
+	while [ -z "$$containerId" ] ; do \
+		echo "(still) waiting for Drupal container to appear" ; \
+		sleep 2; \
+		containerId=$$( docker-compose ps -q drupal ) ; \
+	done && echo "containerId='$$containerId'"
+	# composer config can move forward since container is available:
 	if [ "${GH_TOKEN}" ]; then \
 		echo "Installing github token"; \
-		docker-compose exec -T drupal bash -lc "composer config -g github-oauth.github.com ${GH_TOKEN}" && echo '' ; \
-	fi;
-	docker-compose exec -T drupal /bin/sh -c "while true ; do echo \"Waiting for Drupal to start ...\" ; if [ -d \"/var/run/s6/services/nginx\" ] ; then s6-svwait -u /var/run/s6/services/nginx && exit 0 ; else sleep 5 ; fi done"
+		docker-compose exec -T drupal bash -lc "composer config -g github-oauth.github.com ${GH_TOKEN}" ; \
+	else \
+		echo "No github token provided" ; \
+	fi
+	# new block:
+	containerId=$$( docker-compose ps -q drupal ) ; \
+	echo "Drupal container ID: '$$containerId'" ; \
+	containerName=$$(docker inspect -f '{{.Name}}' $$(docker-compose ps -q drupal) | cut -c2-) ; \
+	echo "Looking into run-state of found-container '$$containerName'" ; \
+	if [ -n "$$containerName" ] ; then \
+		runState="" ; \
+		while [ "true" != "$$runState" ] ; do \
+			sleep 5 ; \
+			runState=$$(docker inspect -f {{.State.Running}} "$$containerName") ; \
+			echo "Waiting for Drupal to start ... current state: $$runState" ; \
+		done && \
+		echo Drupal is ready. ; \
+	fi
 
 # Static drupal image, with codebase baked in.  This image
 # is tagged based on the current git hash/tag.  If the image is not present
