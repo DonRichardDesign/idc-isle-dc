@@ -137,7 +137,12 @@ function main {
   # IDC: modified composer install section to avoid running composer install as part of startup
   # Install Composer modules if necessary.
   if [ ! -d vendor ] ; then
-    printf "\nNo $(pwd)/vendor directory found\n"
+    printf "\nNo $(pwd)/vendor directory found - assuming development environment setup\n"
+    if [ "0" == "$( stat -c %u . )" ] ; then
+      printf "\nSetting ownership of working directory prior to 'composer install'\n"
+      chown nginx:www-data ./
+    fi
+    /var/www/drupal/fix_permissions.sh /var/www/drupal/web nginx
     if [ ! -f composer.lock ] ; then
       printf "\nNo $(pwd)/composer.lock found. Exiting startup script; cannot continue (but not error state).\n"
       exit 0
@@ -146,9 +151,9 @@ function main {
     # No vendor/ but we do have composer.lock file:
     if [ -n "${DRUPAL_INSTANCE}" ] && [ "${DRUPAL_INSTANCE}" != "dev" ] ;
     then
-      COMPOSER_MEMORY_LIMIT=-1 composer install
+      su -s /bin/sh nginx -c "COMPOSER_MEMORY_LIMIT=-1 composer install"
     else
-      COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-install=auto
+      su -s /bin/sh nginx -c "COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-install=auto"
     fi
   fi
 
