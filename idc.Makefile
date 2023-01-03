@@ -204,12 +204,16 @@ _docker-up-and-wait:
 		healthState="" ; \
 		lastLogs="" ; \
 		while [ "healthy" != "$$healthState" ] ; do \
+			if [ "running" != "$$( docker inspect -f '{{ .State.Status }}' $$containerName )" ] ; then \
+				echo "Drupal container has exited. This is abnormal but possibly caused by drupal module sync issue" ; \
+				exit 1 ; \
+			fi ; \
 			sleep 10 ; \
 			healthState=$$(docker inspect -f {{.State.Health.Status}} "$$containerName") ; \
-			if [ ! "healthy" == "$$healthState" ] ; then \
+			if [ "healthy" != "$$healthState" ] ; then \
 				echo "Waiting for Drupal to start and accept connections. (state: '$$healthState')" ; \
 				logs=$$(docker-compose logs drupal | tail -3 | sed 's/^/  /') ; \
-				if [ ! "$$logs" == "$$lastLogs" ] ; then \
+				if [ "$$logs" != "$$lastLogs" ] ; then \
 					printf "last drupal container logs:\n  ...\n$$logs\n" ; \
 					lastLogs="$$logs" ; \
 				fi \
