@@ -201,11 +201,19 @@ _docker-up-and-wait:
 	containerName=$$(docker inspect -f '{{.Name}}' $$(docker-compose ps -q drupal) | cut -c2-) ; \
 	echo "Looking into run-state of found-container '$$containerName'" ; \
 	if [ -n "$$containerName" ] ; then \
-		runState="" ; \
-		while [ "true" != "$$runState" ] ; do \
-			sleep 5 ; \
-			runState=$$(docker inspect -f {{.State.Running}} "$$containerName") ; \
-			echo "Waiting for Drupal to start ... current state: $$runState" ; \
+		healthState="" ; \
+		lastLogs="" ; \
+		while [ "healthy" != "$$healthState" ] ; do \
+			sleep 10 ; \
+			healthState=$$(docker inspect -f {{.State.Health.Status}} "$$containerName") ; \
+			if [ ! "healthy" == "$$healthState" ] ; then \
+				echo "Waiting for Drupal to start and accept connections. (state: '$$healthState')" ; \
+				logs=$$(docker-compose logs drupal | tail -3 | sed 's/^/  /') ; \
+				if [ ! "$$logs" == "$$lastLogs" ] ; then \
+					printf "last drupal container logs:\n  ...\n$$logs\n" ; \
+					lastLogs="$$logs" ; \
+				fi \
+			fi \
 		done && \
 		echo Drupal is ready. ; \
 	fi
