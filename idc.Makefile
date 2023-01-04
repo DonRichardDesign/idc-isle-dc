@@ -206,6 +206,8 @@ _docker-up-and-wait:
 		while [ "healthy" != "$$healthState" ] ; do \
 			if [ "running" != "$$( docker inspect -f '{{ .State.Status }}' $$containerName )" ] ; then \
 				echo "Drupal container has exited. This is abnormal but possibly caused by drupal module sync issue" ; \
+				printf "final drupal container logs:\n  ...\n" ; \
+				docker-compose logs drupal | tail -30 | sed 's/^/  /' ; \
 				exit 1 ; \
 			fi ; \
 			sleep 10 ; \
