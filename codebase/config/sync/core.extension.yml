@@ -56,7 +56,6 @@ module:
   flysystem: 0
   geolocation: 0
   google_analytics: 0
-  google_tag: 0
   hal: 0
   help: 0
   history: 0
