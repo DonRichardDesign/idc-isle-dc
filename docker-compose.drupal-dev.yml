@@ -9,14 +9,14 @@ networks:
   default:
     internal: true
   gateway:
-    external:
-      name: gateway
+    name: gateway
 volumes:
   drupal-sites-data:
   solr-data:
 services:
   drupal:
-    image: ${REPOSITORY:-islandora}/drupal-dev:${TAG:-latest}
+    image: ${REPOSITORY:-islandora}/drupal-dev:static
+    #image: ${REPOSITORY:-islandora}/drupal-dev:${TAG:-latest}
       # Uncomment below to PHP commands executed on container start, or PHP commands (e.g. drush) run from the CLI
       # (significantly slows down the container startup)
       # If debugging container startup is not necessary, consider setting the environment variables within a shell via

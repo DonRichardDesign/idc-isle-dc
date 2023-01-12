@@ -3,12 +3,12 @@ networks:
   default:
     internal: true
   gateway:
-    external:
-      name: gateway
+    name: gateway
 volumes:
   activemq-data:
 services:
   activemq:
+    restart: ${RESTART_POLICY:-unless-stopped}
     image: ${REPOSITORY:-islandora}/activemq:${TAG:-latest}
     volumes:
       - activemq-data:/opt/activemq/data

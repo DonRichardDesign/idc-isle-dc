@@ -9,8 +9,7 @@ networks:
   default:
     internal: true
   gateway:
-    external:
-      name: gateway
+    name: gateway
 volumes:
   drupal-sites-data:
   solr-data:
@@ -21,7 +20,8 @@ services:
       args:
         TAG: ${TAG}
         REPOSITORY: ${REPOSITORY}
-    image: ${REPOSITORY}/drupal-static:${DRUPAL_STATIC_TAG}
+    #image: ${REPOSITORY}/drupal-static:${DRUPAL_STATIC_TAG}
+    image: ${REPOSITORY}/drupal-static:static
     environment:
       DRUPAL_INSTANCE: static
     volumes:

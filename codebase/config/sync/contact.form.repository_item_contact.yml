@@ -8,8 +8,8 @@ dependencies:
 third_party_settings:
   contact_ajax:
     enabled: true
-    prefix_id: ''
     render_selector: ''
+    prefix_id: ''
     confirmation_type: 1
   contact_storage:
     submit_text: 'Send message'
@@ -20,7 +20,7 @@ third_party_settings:
 id: repository_item_contact
 label: 'Repository Item Contact'
 recipients:
-  - web@localhost
+  - jscholarship-help@jhu.edu
 reply: ''
 weight: 0
 message: ''

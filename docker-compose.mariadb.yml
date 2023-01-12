@@ -10,6 +10,7 @@ services:
   # https://github.com/matomo-org/matomo/issues/500
   mariadb:
     image: ${REPOSITORY:-islandora}/mariadb:${TAG:-latest}
+    restart: unless-stopped
     volumes:
       - mariadb-data:/var/lib/mysql
       - mariadb-files:/var/lib/mysql-files
@@ -34,3 +35,7 @@ services:
           - mariadb-${COMPOSE_PROJECT_NAME-isle-dc}.${DRUPAL_SITE_HOST-traefik.me}
           - mariadb-${COMPOSE_PROJECT_NAME-isle-dc}-${DRUPAL_SITE_HOST-traefik.me}
       gateway:
+    healthcheck:
+      test: "mysql mysql -N -e \"SELECT count(*) from information_schema.SCHEMATA;\""
+      timeout: 20s
+      retries: 10
